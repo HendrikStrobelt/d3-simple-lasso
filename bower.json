@@ -15,7 +15,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "figs"
   ],
   "dependencies": {
     "d3": "~3"
