@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="d3-simple-lasso.js"></script>
+
+    <style>
+        .sampleDots{
+            fill:lightgray;
+
+        }
+
+
+        .sampleDots.selected{
+            fill: #d95a2c;
+
+        }
+
+        /*
+         D3 simple lasso styles:
+        */
+        .d3lasso_selected{
+            fill: rgba(217, 90, 44, 0.47);
+
+        }
+
+        .d3lasso_poly{
+            fill:lightgrey;
+            opacity:.3;
+            stroke:white;
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+
+<div id="vis">
+</div>
+
+
+<script>
+
+    /*
+    *
+    * Standard D3 initialization
+    *
+    * */
+
+    var margin = {top: 40, right: 10, bottom: 20, left: 10},
+            width = 960 - margin.left - margin.right,
+            height = 800 - margin.top - margin.bottom;
+
+    var svg = d3.select("#vis").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+    /*  Creating a hierarchy ("z buffer") of:
+     *    1) <g> for background
+     *    2) <g> for main view
+     *    3) <g> for overlay
+     *
+     * */
+
+    var bg = svg.append("g").attr({class:"bg"})
+    bg.append("rect").attr({
+        width:960,
+        height: 800
+    }).style({
+        fill:"black"
+    })
+
+    var main = svg.append("g").attr("class","main");
+
+    var overlay = svg.append("g").attr("class","overlay");
+
+
+    // generate random data points:
+    var fdata = d3.range(1,100).map(function(d){return {x: Math.random()*800, y:Math.random()*800, name:"test"+d};})
+
+    var sampleDots = main.selectAll(".sampleDots").data(fdata);
+    sampleDots.exit().remove();
+
+    // --- adding Element to class sampleDots
+    var sampleDotsEnter = sampleDots.enter().append("circle").attr({
+        "class":"sampleDots"
+    })
+
+    // --- changing nodes for sampleDots
+    sampleDots.attr({
+        cx:function(d){return d.x;},
+        cy:function(d){return d.y;},
+        r:5
+    })
+
+    sampleDots.on("click",function(){
+        var el  = d3.select(this);
+        el.classed("selected",el.classed("selected")?null:true);
+    });
+
+
+
+    /*
+    *
+    * Create lasso
+    *
+    * */
+    d3lasso(bg, overlay, sampleDots,null,null) // using the standard x(d.x) and y(d.y) accessors
+
+
+
+</script>
+
+</body>
+</html>

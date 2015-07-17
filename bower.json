@@ -1,0 +1,23 @@
+{
+  "name": "d3-simple-lasso",
+  "version": "0.1.0",
+  "authors": [
+    "Hendrik Strobelt <hendrik@strobelt.com>"
+  ],
+  "description": "a simple lasso selector using D3",
+  "main": "d3-simple-lasso.js",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3"
+  }
+}
