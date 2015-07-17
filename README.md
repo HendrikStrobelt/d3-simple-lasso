@@ -2,6 +2,11 @@
 
 a small and simple implementation for a lasso selection in d3.
 
+install with:
+```
+bower install -S https://github.com/HendrikStrobelt/d3-simple-lasso.git
+```
+
 initiate it with:
 ```
 d3lasso(backgroundSelection, overlaySelection, elementsSelection, xAccessor, yAccessor)
