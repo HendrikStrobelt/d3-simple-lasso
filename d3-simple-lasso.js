@@ -1,6 +1,6 @@
 (function(){
 
-    var d3lasso =function(backgroundSelection, overlaySelection, elementsSelection, xAccessor, yAccessor)
+    var d3lasso =function(backgroundSelection, overlaySelection, elementsSelection, xAccessor, yAccessor, callback)
     {
         var that = this;
         this.lassoEl = null;
@@ -12,6 +12,7 @@
 
         this.xAccessor = xAccessor || function(d){return d.x};
         this.yAccessor = yAccessor || function(d){return d.y};
+        this.callback = callback || function(sel){ sel.classed("selected",true); }
 
         this.lassoPoints = [];
 
@@ -49,8 +50,9 @@
                     that.lassoEl.remove();
                     that.lassoEl = null;
 
-                    d3.selectAll(".d3lasso_selected").classed("d3lasso_selected",null)
-                        .classed("selected",true);
+                    var sel = d3.selectAll(".d3lasso_selected")
+                        sel.classed("d3lasso_selected",null)
+                    that.callback(sel)
                 }
 
                 inLasso=false;
